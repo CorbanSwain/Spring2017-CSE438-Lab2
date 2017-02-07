@@ -1,2 +1,2 @@
-# CSE 438 Lab 2 - Virtuial Pet App
+# CSE 438 Lab 2 - Virtual Pet App
 assignment to make a virtual pet app
