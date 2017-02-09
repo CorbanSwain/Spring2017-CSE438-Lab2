@@ -16,7 +16,7 @@ class NumericIntAttribute {
         static func provideChange(from oldValue: Int,
                                   to newValue: Int,
                                   max: Int,
-                                  min: Int) -> (numericChange) {
+                                  min: Int) -> numericChange {
             if oldValue < newValue { return .increased }
             else if oldValue > newValue { return .decreased }
             else if oldValue == min { return .minedOut }
