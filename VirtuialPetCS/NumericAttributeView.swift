@@ -36,6 +36,8 @@ class NumericAttributeView: UIView {
             displayView.value = attribute.valueFraction
         }
     }
+    
+    
 }
 
 extension NumericIntAttribute.numericChange {
@@ -56,23 +58,5 @@ extension NumericIntAttribute.numericChange {
 extension DisplayView {
     public func animateColor(to color: UIColor) {
         UIView.animate(withDuration: 0.5, animations: { self.color = color })
-    }
-}
-
-extension UIView {
-    
-    @discardableResult   // 1
-    func fromNib<T : UIView>() -> T? {   // 2
-        guard let view = Bundle.main.loadNibNamed(String(describing: type(of: self)), owner: self, options: nil)?[0] as? T else {    // 3
-            // xib not loaded, or it's top view is of the wrong type
-            return nil
-        }
-        self.addSubview(view)     // 4
-        view.translatesAutoresizingMaskIntoConstraints = false   // 5
-        
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view":self]))
-        view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view":self]))
-        
-        return view   // 7
     }
 }

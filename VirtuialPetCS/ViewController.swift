@@ -80,6 +80,7 @@ class ViewController: UIViewController, PetMessageSender {
         happinessSuperview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": happinessView]))
         
         currentPet = pets[currentTag]
+        animalButtons[currentTag].tintColor = .blue
         updateAllPetView()
     }
 

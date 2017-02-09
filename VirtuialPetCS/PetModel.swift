@@ -105,11 +105,13 @@ class Pet {
                                                selector: #selector(metaboliseFood),
                                                userInfo: nil,
                                                repeats: true)
+        
         hungerTimer = Timer.scheduledTimer(timeInterval: 8,
                                            target: self,
                                            selector: #selector(checkForHunger),
                                            userInfo: nil,
                                            repeats: true)
+        
         messageTimer = Timer.scheduledTimer(timeInterval: 1,
                                            target: self,
                                            selector: #selector(updatePetMessage),
