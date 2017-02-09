@@ -4,7 +4,6 @@
 //  DisplayView.swift
 //  A simple, animated bar to display a value.
 //
-//  animateColor(to:) added by Corban Swain.
 //
 //  Created by Nathan Gitter on 11/8/16.
 //  Dedicated to all past, current, and future CSE 438 students.
@@ -63,10 +62,6 @@ class DisplayView: UIView {
     public func animateValue(to newValue: CGFloat) {
         self.modelValue = newValue
         self.update(animated: true)
-    }
-    
-    public func animateColor(to color: UIColor) {
-        UIView.animate(withDuration: 0.5, animations: { self.color = color })
     }
     
     private func update(animated: Bool) {

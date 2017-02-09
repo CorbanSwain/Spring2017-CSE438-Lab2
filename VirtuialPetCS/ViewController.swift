@@ -8,16 +8,18 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, PetMessageSender {
 
     @IBOutlet weak var petImageView: UIImageView!
     @IBOutlet weak var petView: UIView!
     
-    @IBOutlet weak var foodLevelLabel: UILabel!
-    @IBOutlet weak var foodLevelDisplayView: DisplayView!
+    @IBOutlet weak var foodLevelSuperview: UIView!
+    @IBOutlet weak var happinessSuperview: UIView!
     
-    @IBOutlet weak var happinessLabel: UILabel!
-    @IBOutlet weak var happinessDisplayView: DisplayView!
+    @IBOutlet weak var petMessageLabel: UILabel!
+    
+    var foodLevelView: NumericAttributeView!
+    var happinessView: NumericAttributeView!
     
     @IBOutlet var animalButtons: [UIBarButtonItem]!
     
@@ -26,13 +28,31 @@ class ViewController: UIViewController {
                 Pet(.cat),
                 Pet(.bunny),
                 Pet(.fish)]
-    var currentPet: Pet!
-    var currentTag: Int = 0
+    
+    var currentPet: Pet! {
+        didSet(oldPet) {
+            if let pet = oldPet { pet.delegate = nil }
+            foodLevelView.attribute = currentPet.foodLevel
+            happinessView.attribute = currentPet.joyLevel
+            currentPet.delegate = self
+            let favColor = currentPet.species.favoriteColor.withAlphaComponent(0.3)
+            foodLevelView.displayViewColor = favColor
+            happinessView.displayViewColor = favColor
+        }
+    }
+    var currentTag: Int = 0 {
+        didSet(oldTag) {
+            currentPet = pets[currentTag]
+            animalButtons[oldTag].tintColor = .gray
+            animalButtons[currentTag].tintColor = .blue
+        }
+    }
     
     var checkTimer: Timer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        petMessageLabel.text = ""
         checkTimer = Timer.scheduledTimer(timeInterval: 1,
                                           target: self,
                                           selector: #selector(ViewController.checkPetChanges),
@@ -43,8 +63,23 @@ class ViewController: UIViewController {
             button.tintColor = .gray
             button.action = #selector(ViewController.changePetView(sender:))
         }
+        
+        foodLevelView = Bundle.main.loadNibNamed("NumericAttributeView", owner: self, options: nil)?.first as! NumericAttributeView?
+        print("...done")
+        
+        foodLevelSuperview.addSubview(foodLevelView as UIView)
+        foodLevelView.translatesAutoresizingMaskIntoConstraints = false
+        foodLevelSuperview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view":foodLevelView]))
+        foodLevelSuperview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view":foodLevelView]))
+        
+        
+        happinessView = Bundle.main.loadNibNamed("NumericAttributeView", owner: self, options: nil)?.first as! NumericAttributeView
+        happinessSuperview.addSubview(happinessView as UIView)
+        happinessView.translatesAutoresizingMaskIntoConstraints = false
+        happinessSuperview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": happinessView]))
+        happinessSuperview.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-0-[view]-0-|", options: NSLayoutFormatOptions(rawValue: 0), metrics: nil, views: ["view": happinessView]))
+        
         currentPet = pets[currentTag]
-        animalButtons[currentTag].tintColor = .blue
         updateAllPetView()
     }
 
@@ -54,14 +89,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func feedButtonPressed(_ sender: UIButton) {
-        currentPet.feed(by: 5)
-        updateFoodView()
+        currentPet.feed()
+        foodLevelView.update()
     }
     
     @IBAction func playButtonPressed(_ sender: UIButton) {
-        currentPet.playWith(by: 5)
-        updateHappinessView()
-        updateFoodView()
+        currentPet.playWith()
+        happinessView.update()
+        foodLevelView.update()
     }
     
     func updatePetPhoto() {
@@ -69,74 +104,28 @@ class ViewController: UIViewController {
         petView.backgroundColor = currentPet.species.favoriteColor
     }
     
-    func updateFoodView() {
-        if let newColor = currentPet.foodLevelStatus.color {
-            foodLevelDisplayView.color = newColor
-        }
-        foodLevelLabel.text = String(currentPet.foodLevel)
-        switch currentPet.foodLevel {
-        case 0...5:
-            foodLevelDisplayView.animateColor(to: .red)
-        case 95...100:
-            foodLevelDisplayView.animateColor(to: .green)
-        default:
-            foodLevelDisplayView.animateColor(to: .gray)
-        }
-        foodLevelDisplayView.animateValue(to: currentPet.foodLevelFraction)
-    }
     
-    func updateHappinessView() {
-        if let newColor = currentPet.joyLevelStatus.color {
-            happinessDisplayView.color = newColor
-        }
-        happinessLabel.text = String(currentPet.joyLevel)
-        switch currentPet.joyLevel {
-        case 0...5:
-            happinessDisplayView.animateColor(to: .red)
-        case 95...100:
-            happinessDisplayView.animateColor(to: .green)
-        default:
-            happinessDisplayView.animateColor(to: .gray)
-        }
-        happinessDisplayView.animateValue(to: currentPet.joyFraction)
-    }
-    
-    func updateAllPetView() {
-        updateHappinessView()
-        updateFoodView()
+    func updateAllPetView(animate: Bool = true) {
+        happinessView.update(animate: animate)
+        foodLevelView.update(animate: animate)
         updatePetPhoto()
     }
     
     func changePetView(sender: UIBarButtonItem) {
-        animalButtons[currentTag].tintColor = .gray
         currentTag = sender.tag
-        currentPet = pets[currentTag]
-        sender.tintColor = .blue
-        updateAllPetView()
+        updateAllPetView(animate: false)
     }
     
     func checkPetChanges() {
         if currentPet.hasSpentFood {
-            updateFoodView()
+            foodLevelView.update()
         }
         if currentPet.hasSuffered {
-            updateHappinessView()
+            happinessView.update()
         }
     }
-}
-
-extension valueStatus {
-    var color: UIColor? {
-        switch self {
-        case .decreased,
-             .minedOut:
-            return .red
-        case .increased,
-             .maxedOut:
-            return .green
-        case .same:
-            return nil
-        }
+    
+    func printPetMessage(_ message: String) {
+        petMessageLabel.text = message
     }
 }
-

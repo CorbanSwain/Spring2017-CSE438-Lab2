@@ -16,6 +16,9 @@
 		1C69CFA21E48F0930082FF1B /* VirtuialPetCSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C69CFA11E48F0930082FF1B /* VirtuialPetCSUITests.swift */; };
 		1C69CFCB1E49D8A10082FF1B /* PetModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C69CFCA1E49D8A10082FF1B /* PetModel.swift */; };
 		1C69CFCD1E49EE470082FF1B /* DisplayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C69CFCC1E49EE470082FF1B /* DisplayView.swift */; };
+		1CD4CD211E4BFF4800AEC250 /* NumericAttributeView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1CD4CD201E4BFF4800AEC250 /* NumericAttributeView.xib */; };
+		1CD4CD231E4C006E00AEC250 /* NumericAttributeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD4CD221E4C006E00AEC250 /* NumericAttributeView.swift */; };
+		1CD4CD261E4C3BC500AEC250 /* NumericIntAttribute.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1CD4CD251E4C3BC500AEC250 /* NumericIntAttribute.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		1C69CFA31E48F0930082FF1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1C69CFCA1E49D8A10082FF1B /* PetModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PetModel.swift; sourceTree = "<group>"; };
 		1C69CFCC1E49EE470082FF1B /* DisplayView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DisplayView.swift; sourceTree = "<group>"; };
+		1CD4CD201E4BFF4800AEC250 /* NumericAttributeView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumericAttributeView.xib; sourceTree = "<group>"; };
+		1CD4CD221E4C006E00AEC250 /* NumericAttributeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumericAttributeView.swift; sourceTree = "<group>"; };
+		1CD4CD251E4C3BC500AEC250 /* NumericIntAttribute.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumericIntAttribute.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +110,9 @@
 				1C69CF811E48F0930082FF1B /* AppDelegate.swift */,
 				1C69CF831E48F0930082FF1B /* ViewController.swift */,
 				1C69CFCA1E49D8A10082FF1B /* PetModel.swift */,
+				1CD4CD251E4C3BC500AEC250 /* NumericIntAttribute.swift */,
 				1C69CF851E48F0930082FF1B /* Main.storyboard */,
+				1CD4CD241E4C185100AEC250 /* NumericAttributeView */,
 				1C69CFCC1E49EE470082FF1B /* DisplayView.swift */,
 				1C69CF881E48F0930082FF1B /* Assets.xcassets */,
 				1C69CF8A1E48F0930082FF1B /* LaunchScreen.storyboard */,
@@ -129,6 +137,15 @@
 				1C69CFA31E48F0930082FF1B /* Info.plist */,
 			);
 			path = VirtuialPetCSUITests;
+			sourceTree = "<group>";
+		};
+		1CD4CD241E4C185100AEC250 /* NumericAttributeView */ = {
+			isa = PBXGroup;
+			children = (
+				1CD4CD201E4BFF4800AEC250 /* NumericAttributeView.xib */,
+				1CD4CD221E4C006E00AEC250 /* NumericAttributeView.swift */,
+			);
+			name = NumericAttributeView;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -243,6 +260,7 @@
 			files = (
 				1C69CF8C1E48F0930082FF1B /* LaunchScreen.storyboard in Resources */,
 				1C69CF891E48F0930082FF1B /* Assets.xcassets in Resources */,
+				1CD4CD211E4BFF4800AEC250 /* NumericAttributeView.xib in Resources */,
 				1C69CF871E48F0930082FF1B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -270,8 +288,10 @@
 			files = (
 				1C69CF841E48F0930082FF1B /* ViewController.swift in Sources */,
 				1C69CFCD1E49EE470082FF1B /* DisplayView.swift in Sources */,
+				1CD4CD261E4C3BC500AEC250 /* NumericIntAttribute.swift in Sources */,
 				1C69CF821E48F0930082FF1B /* AppDelegate.swift in Sources */,
 				1C69CFCB1E49D8A10082FF1B /* PetModel.swift in Sources */,
+				1CD4CD231E4C006E00AEC250 /* NumericAttributeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -522,6 +542,7 @@
 				1C69CFA81E48F0930082FF1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1C69CFA91E48F0930082FF1B /* Build configuration list for PBXNativeTarget "VirtuialPetCSTests" */ = {
 			isa = XCConfigurationList;
@@ -530,6 +551,7 @@
 				1C69CFAB1E48F0930082FF1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		1C69CFAC1E48F0930082FF1B /* Build configuration list for PBXNativeTarget "VirtuialPetCSUITests" */ = {
 			isa = XCConfigurationList;
@@ -538,6 +560,7 @@
 				1C69CFAE1E48F0930082FF1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

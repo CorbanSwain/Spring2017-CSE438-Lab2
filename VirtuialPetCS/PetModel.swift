@@ -6,7 +6,6 @@
 //  Copyright © 2017 CorbanSwain. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 public enum animalSpecies: String {
@@ -33,9 +32,9 @@ public enum animalSpecies: String {
         get {
             switch self {
             case .bird:
-                return .green
+                return .purple
             case .bunny:
-                return .red
+                return .yellow
             case .cat:
                 return .brown
             case .dog:
@@ -47,67 +46,19 @@ public enum animalSpecies: String {
     }
 }
 
-enum valueStatus {
-    case increased, decreased, maxedOut, minedOut, same
-    
-    static func provideStatus(from oldValue: Int,
-                       to newValue: Int,
-                       max: Int,
-                       min: Int) -> (valueStatus) {
-        if oldValue < newValue { return .increased }
-        else if oldValue > newValue { return .decreased }
-        else if oldValue == min { return .minedOut }
-        else if oldValue == max { return .maxedOut }
-        else { return .same }
-    }
+protocol PetMessageSender: class {
+    func printPetMessage(_ message: String)
 }
 
 class Pet {
     let species: animalSpecies
     
-    static let MIN_JOY = 0, MAX_JOY = 100
-    var joyLevelStatus = valueStatus.minedOut
-    private(set) var joyLevel: Int = 0 {
-        didSet(oldJoyLevel) {
-            if joyLevel > Pet.MAX_JOY {
-                joyLevel = Pet.MAX_JOY
-            } else if joyLevel < Pet.MIN_JOY {
-                joyLevel = Pet.MIN_JOY
-            }
-            joyLevelStatus = valueStatus.provideStatus(from: oldJoyLevel,
-                                                       to: joyLevel,
-                                                       max: Pet.MAX_JOY,
-                                                       min: Pet.MIN_JOY)
-        }
-    }
-    var joyDecrement = 0;
-    var joyFraction: CGFloat {
-        get {
-            return CGFloat(joyLevel) / CGFloat(Pet.MAX_JOY)
-        }
-    }
-    
-    static let MIN_FOOD = 0, MAX_FOOD = 100
-    var foodLevelStatus = valueStatus.minedOut
-    private(set) var foodLevel: Int = 0 {
-        didSet(oldFoodLevel) {
-            if foodLevel > Pet.MAX_FOOD {
-                foodLevel = Pet.MAX_FOOD
-            } else if foodLevel < Pet.MIN_FOOD {
-                foodLevel = Pet.MIN_FOOD
-            }
-            foodLevelStatus = valueStatus.provideStatus(from: oldFoodLevel,
-                                                        to: foodLevel,
-                                                        max: Pet.MAX_FOOD,
-                                                        min: Pet.MIN_FOOD)
-            
-        }
-    }
-    var foodLevelFraction: CGFloat {
-        get {
-            return CGFloat(foodLevel) / CGFloat(Pet.MAX_FOOD)
-        }
-    }
+    var joyLevel = NumericIntAttribute(title: "Happiness",
+                                       incrementValue: 5,
+                                       decrementValue: 0)
+    var foodLevel = NumericIntAttribute(title: "Food Level",
+                                        incrementValue: 5,
+                                        decrementValue: 2)
     
     lazy var image: UIImage = {
         return self.species.image
@@ -139,6 +90,10 @@ class Pet {
         }
     }
     
+    private var messageTimer: Timer!
+    weak var delegate: PetMessageSender? {
+        didSet { updatePetMessage() }
+    }
     
     init(_ species: animalSpecies) {
         self.species = species
@@ -155,52 +110,75 @@ class Pet {
                                            selector: #selector(checkForHunger),
                                            userInfo: nil,
                                            repeats: true)
+        messageTimer = Timer.scheduledTimer(timeInterval: 1,
+                                           target: self,
+                                           selector: #selector(updatePetMessage),
+                                           userInfo: nil,
+                                           repeats: true)
 
     }
     
-    func playWith(by amount: Int = 10) {
-        let playLeft = foodLevel * 5 / 4
-        if amount > playLeft {
-            joyLevel += playLeft
-            foodLevel = 0
+    func playWith() {
+        let playLeft = foodLevel.value * 5 / 4
+        if joyLevel.incrementValue > playLeft {
+            joyLevel.increment(by: playLeft)
+            foodLevel.zero()
         }
         else {
-            joyLevel += amount
-            if joyLevelStatus != .maxedOut
+            joyLevel.increment()
+            if joyLevel.status != .maxedOut
             {
-                foodLevel -= amount * 4 / 5
+                foodLevel.decrement(by: joyLevel.incrementValue * 4 / 5)
             } else {
-                foodLevelStatus = .same
+                foodLevel.status = .same
             }
         }
     }
     
-    func feed(by amount: Int = 10) {
-        if amount > 0 && metabolismTimer == nil { startTimers() }
-        foodLevel += amount
+    func feed() {
+        if foodLevel.incrementValue > 0 && metabolismTimer == nil { startTimers() }
+        foodLevel.increment()
     }
     
     @objc func metaboliseFood() {
-        foodLevel -= 2
+        foodLevel.decrement()
         didJustMetabolize = true
     }
     
     @objc func checkForHunger() {
-        switch foodLevel {
+        switch foodLevel.value {
         case 30...100:
-            joyDecrement = 0
+            joyLevel.decrementValue = 0
             return
         case 20..<30:
-            joyDecrement = 2
+            joyLevel.decrementValue = 2
         case 10..<20:
-            joyDecrement = 5
+            joyLevel.decrementValue = 5
         case 0..<10:
-            joyDecrement = 8
+            joyLevel.decrementValue = 8
         default:
             print("ERROR: foodLevel out of bounds")
             return
         }
         didJustSuffer = true
-        joyLevel -= joyDecrement
+        joyLevel.decrement()
     }
+    
+    @objc func updatePetMessage() {
+        if !didJustMetabolize {
+            if foodLevel.value < 20 {
+                if foodLevel.value < 10 {
+                    delegate?.printPetMessage("Feed me!")
+                } else {
+                    delegate?.printPetMessage("Food?")
+                }
+            } else  if foodLevel.value > 65 && joyLevel.value < 20 {
+                delegate?.printPetMessage("Lets Play!")
+            } else {
+                delegate?.printPetMessage("")
+            }
+        }
+    }
+    
+    
 }

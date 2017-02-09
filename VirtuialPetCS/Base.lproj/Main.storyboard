@@ -7,7 +7,6 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,18 +29,27 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="296.5"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oXd-mz-Vto">
-                                                <rect key="frame" x="117.5" y="78.5" width="140" height="140"/>
+                                                <rect key="frame" x="117.5" y="79" width="140" height="140"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="lessThanOrEqual" constant="140" id="7x1-OE-G61"/>
                                                     <constraint firstAttribute="width" secondItem="oXd-mz-Vto" secondAttribute="height" multiplier="1:1" id="Ny2-Qr-i2f"/>
                                                 </constraints>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Feed Me!" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8B-8U-5p2">
+                                                <rect key="frame" x="0.0" y="123" width="102.5" height="21.5"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                                <color key="textColor" white="0.58729383680555558" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstItem="oXd-mz-Vto" firstAttribute="centerY" secondItem="tNS-0r-nae" secondAttribute="centerY" id="3mj-8e-Rgp"/>
                                             <constraint firstItem="oXd-mz-Vto" firstAttribute="top" secondItem="tNS-0r-nae" secondAttribute="top" priority="880" constant="20" id="76w-Vz-S0Z"/>
+                                            <constraint firstItem="oXd-mz-Vto" firstAttribute="centerY" secondItem="A8B-8U-5p2" secondAttribute="centerY" constant="15" id="B2D-TY-0p2"/>
                                             <constraint firstItem="oXd-mz-Vto" firstAttribute="centerX" secondItem="tNS-0r-nae" secondAttribute="centerX" id="G1D-xQ-ubl"/>
+                                            <constraint firstItem="A8B-8U-5p2" firstAttribute="leading" secondItem="tNS-0r-nae" secondAttribute="leading" id="JT8-0f-eJu"/>
+                                            <constraint firstItem="oXd-mz-Vto" firstAttribute="leading" secondItem="A8B-8U-5p2" secondAttribute="trailing" constant="15" id="ziN-A1-jl3"/>
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YXM-eF-Qev" userLabel="InterfaceView" customClass="UIStackView">
@@ -94,79 +102,9 @@
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HUC-FJ-U5S" userLabel="HappyView">
                                                         <rect key="frame" x="0.0" y="0.0" width="355" height="115.5"/>
-                                                        <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tes-bV-ql8" userLabel="Happiness Display View" customClass="DisplayView" customModule="VirtuialPetCS" customModuleProvider="target">
-                                                                <rect key="frame" x="8" y="55.5" width="339" height="40"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Happiness" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jw0-ax-o9c" userLabel="Happiness Label">
-                                                                <rect key="frame" x="8" y="20" width="100" height="25.5"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="100" id="bFU-th-fSb"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="###" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j9v-sc-Xa1" userLabel="Happiness Value Label">
-                                                                <rect key="frame" x="247" y="20" width="100" height="25.5"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="100" id="A3m-UG-5eo"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstAttribute="bottom" secondItem="Tes-bV-ql8" secondAttribute="bottom" constant="20" id="DaD-AE-IrU"/>
-                                                            <constraint firstItem="j9v-sc-Xa1" firstAttribute="height" secondItem="Jw0-ax-o9c" secondAttribute="height" id="KvD-Vl-Qpj"/>
-                                                            <constraint firstItem="j9v-sc-Xa1" firstAttribute="trailing" secondItem="Tes-bV-ql8" secondAttribute="trailing" id="NYF-BT-Yb1"/>
-                                                            <constraint firstItem="Jw0-ax-o9c" firstAttribute="top" secondItem="HUC-FJ-U5S" secondAttribute="top" constant="20" id="ORz-RR-Jgv"/>
-                                                            <constraint firstItem="Tes-bV-ql8" firstAttribute="leading" secondItem="Jw0-ax-o9c" secondAttribute="leading" id="WlQ-Tk-aJs"/>
-                                                            <constraint firstItem="j9v-sc-Xa1" firstAttribute="trailing" secondItem="HUC-FJ-U5S" secondAttribute="trailingMargin" id="XZU-x7-brl"/>
-                                                            <constraint firstItem="Tes-bV-ql8" firstAttribute="top" secondItem="Jw0-ax-o9c" secondAttribute="bottom" constant="10" id="jjF-5p-a7A"/>
-                                                            <constraint firstItem="j9v-sc-Xa1" firstAttribute="bottom" secondItem="Jw0-ax-o9c" secondAttribute="bottom" id="nmb-AT-yhw"/>
-                                                            <constraint firstItem="Jw0-ax-o9c" firstAttribute="leading" secondItem="HUC-FJ-U5S" secondAttribute="leadingMargin" id="te5-4F-S9C"/>
-                                                        </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eB7-D1-Zn3" userLabel="FoodView">
                                                         <rect key="frame" x="0.0" y="125.5" width="355" height="115"/>
-                                                        <subviews>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9ic-Qc-gi6" userLabel="Food Display View" customClass="DisplayView" customModule="VirtuialPetCS" customModuleProvider="target">
-                                                                <rect key="frame" x="8" y="55.5" width="339" height="39.5"/>
-                                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                            </view>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Food Level" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="84v-cT-bgF" userLabel="Food Level Label">
-                                                                <rect key="frame" x="8" y="20" width="100" height="25.5"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="100" id="1ND-w7-cN5"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="21"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="###" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bKT-2G-kLE" userLabel="Food Value Label">
-                                                                <rect key="frame" x="247" y="20" width="100" height="25.5"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="100" id="aCs-TD-DcA"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                        <constraints>
-                                                            <constraint firstItem="9ic-Qc-gi6" firstAttribute="trailing" secondItem="eB7-D1-Zn3" secondAttribute="trailingMargin" id="CS6-Db-vax"/>
-                                                            <constraint firstItem="9ic-Qc-gi6" firstAttribute="leading" secondItem="84v-cT-bgF" secondAttribute="leading" id="LZS-Tz-MGo"/>
-                                                            <constraint firstItem="9ic-Qc-gi6" firstAttribute="leading" secondItem="eB7-D1-Zn3" secondAttribute="leadingMargin" id="OGS-Mf-qwf"/>
-                                                            <constraint firstItem="bKT-2G-kLE" firstAttribute="height" secondItem="84v-cT-bgF" secondAttribute="height" id="WUy-bb-G6R"/>
-                                                            <constraint firstItem="bKT-2G-kLE" firstAttribute="trailing" secondItem="9ic-Qc-gi6" secondAttribute="trailing" id="fg9-hB-aKX"/>
-                                                            <constraint firstItem="84v-cT-bgF" firstAttribute="top" secondItem="eB7-D1-Zn3" secondAttribute="top" constant="20" id="j0Q-n2-hem"/>
-                                                            <constraint firstAttribute="bottom" secondItem="9ic-Qc-gi6" secondAttribute="bottom" constant="20" id="kF5-9u-Kij"/>
-                                                            <constraint firstItem="bKT-2G-kLE" firstAttribute="bottom" secondItem="84v-cT-bgF" secondAttribute="bottom" id="mF1-Wc-MPQ"/>
-                                                            <constraint firstItem="9ic-Qc-gi6" firstAttribute="top" secondItem="84v-cT-bgF" secondAttribute="bottom" constant="10" id="sru-6O-ySF"/>
-                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <constraints>
@@ -231,11 +169,10 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="foodLevelDisplayView" destination="9ic-Qc-gi6" id="qfQ-kt-vec"/>
-                        <outlet property="foodLevelLabel" destination="bKT-2G-kLE" id="Q0Y-yz-SfN"/>
-                        <outlet property="happinessDisplayView" destination="Tes-bV-ql8" id="WDG-a2-H2L"/>
-                        <outlet property="happinessLabel" destination="j9v-sc-Xa1" id="Pfs-RP-Eeu"/>
+                        <outlet property="foodLevelSuperview" destination="eB7-D1-Zn3" id="sJl-Me-wga"/>
+                        <outlet property="happinessSuperview" destination="HUC-FJ-U5S" id="2eQ-Tq-C8n"/>
                         <outlet property="petImageView" destination="oXd-mz-Vto" id="SYb-Io-KsP"/>
+                        <outlet property="petMessageLabel" destination="A8B-8U-5p2" id="RHz-hv-hqn"/>
                         <outlet property="petView" destination="tNS-0r-nae" id="C9M-KL-gFT"/>
                         <outletCollection property="animalButtons" destination="QeV-kq-MWn" collectionClass="NSMutableArray" id="mq0-Ir-Hdq"/>
                         <outletCollection property="animalButtons" destination="hqZ-Gx-rrT" collectionClass="NSMutableArray" id="VkJ-G0-wxg"/>
